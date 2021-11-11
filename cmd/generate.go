@@ -655,7 +655,7 @@ func main(cmd *cobra.Command, args []string) error {
 			workingDirs = append(workingDirs, projectHclDirMap[projectHclFile]...)
 		}
 		// parse terragrunt child modules outside the scope of projectHclDirs
-		if createHclProjectExternalChilds == true {
+		if createHclProjectExternalChilds {
 			workingDirs = append(workingDirs, gitRoot)
 		}
 	}
