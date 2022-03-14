@@ -56,6 +56,13 @@ func runTest(t *testing.T, goldenFile string, args []string) {
 		return
 	}
 
+	err = os.Mkdir("test_artifacts", 0755)
+	if err != nil {
+		t.Fatal(err)
+		return
+	}
+	defer os.Remove("test_artifacts")
+
 	randomInt := rand.Int()
 	filename := filepath.Join("test_artifacts", fmt.Sprintf("%d.yaml", randomInt))
 	defer os.Remove(filename)
