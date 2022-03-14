@@ -7,8 +7,8 @@ on:
     tags: ["*"]
 
   # run on PRs against master
-  pull_request:
-    branches: [master]
+  # pull_request:
+  #   branches: [master]
 
   # manual trigger
   workflow_dispatch:
