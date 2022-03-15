@@ -138,7 +138,7 @@ func getDependencies(path string, terragruntOptions *options.TerragruntOptions) 
 			getDependenciesCache.set(path, getDependenciesOutput{nil, err})
 			return nil, err
 		}
-		if isParent && !createParentProject && ignoreParentTerragrunt {
+		if isParent && ignoreParentTerragrunt {
 			getDependenciesCache.set(path, getDependenciesOutput{nil, nil})
 			return nil, nil
 		}
@@ -820,7 +820,6 @@ var gitRoot string
 var autoPlan bool
 var autoMerge bool
 var ignoreParentTerragrunt bool
-var createParentProject bool
 var ignoreDependencyBlocks bool
 var parallel bool
 var createWorkspace bool
@@ -858,7 +857,6 @@ func init() {
 	generateCmd.PersistentFlags().BoolVar(&autoPlan, "autoplan", false, "Enable auto plan. Default is disabled")
 	generateCmd.PersistentFlags().BoolVar(&autoMerge, "automerge", false, "Enable auto merge. Default is disabled")
 	generateCmd.PersistentFlags().BoolVar(&ignoreParentTerragrunt, "ignore-parent-terragrunt", true, "Ignore parent terragrunt configs (those which don't reference a terraform module). Default is enabled")
-	generateCmd.PersistentFlags().BoolVar(&createParentProject, "create-parent-project", false, "Create a project for the parent terragrunt configs (those which don't reference a terraform module). Default is disabled")
 	generateCmd.PersistentFlags().BoolVar(&ignoreDependencyBlocks, "ignore-dependency-blocks", false, "When true, dependencies found in `dependency` blocks will be ignored")
 	generateCmd.PersistentFlags().BoolVar(&parallel, "parallel", true, "Enables plans and applys to happen in parallel. Default is enabled")
 	generateCmd.PersistentFlags().BoolVar(&createWorkspace, "create-workspace", false, "Use different workspace for each project. Default is use default workspace")
