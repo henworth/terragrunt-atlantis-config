@@ -28,7 +28,6 @@ func resetForRun() error {
 	autoPlan = false
 	autoMerge = false
 	cascadeDependencies = true
-	ignoreParentTerragrunt = true
 	ignoreDependencyBlocks = false
 	parallel = true
 	createWorkspace = false
@@ -124,21 +123,6 @@ func TestWithParallelizationDisabled(t *testing.T) {
 		"--root",
 		filepath.Join("..", "test_examples", "basic_module"),
 		"--parallel=false",
-	})
-}
-
-func TestIgnoringParentTerragrunt(t *testing.T) {
-	runTest(t, filepath.Join("golden", "withoutParent.yaml"), []string{
-		"--root",
-		filepath.Join("..", "test_examples", "with_parent"),
-	})
-}
-
-func TestNotIgnoringParentTerragrunt(t *testing.T) {
-	runTest(t, filepath.Join("golden", "withParent.yaml"), []string{
-		"--root",
-		filepath.Join("..", "test_examples", "with_parent"),
-		"--ignore-parent-terragrunt=false",
 	})
 }
 

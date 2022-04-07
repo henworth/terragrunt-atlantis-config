@@ -117,31 +117,30 @@ One way to customize the behavior of this module is through CLI flag values pass
 | `--autoplan`                 | The default value for autoplan settings. Can be overriden by locals.                                                                                                            | false             |
 | `--automerge`                | Enables the automerge setting for a repo.                                                                                                                                       | false             |
 | `--cascade-dependencies`     | When true, dependencies will cascade, meaning that a module will be declared to depend not only on its dependencies, but all dependencies of its dependencies all the way down. | true              |
-| `--ignore-parent-terragrunt` | Ignore parent Terragrunt configs (those which don't reference a terraform module).<br>In most cases, this should be set to `true`                                               | true              |
 | `--parallel`                 | Enables `plan`s and `apply`s to happen in parallel. Will typically be used with `--create-workspace`                                                                            | true              |
 | `--create-workspace`         | Use different auto-generated workspace for each project. Default is use default workspace for everything                                                                        | false             |
 | `--create-project-name`      | Add different auto-generated name for each project                                                                                                                              | false             |
 | `--preserve-workflows`       | Preserves workflows from old output files. Useful if you want to define your workflow definitions on the client side                                                            | true              |
-| `--preserve-projects`        | Preserves projects from old output files. Useful for incremental builds using `--filter` | false              |
+| `--preserve-projects`        | Preserves projects from old output files. Useful for incremental builds using `--filter`                                                                                        | false             |
 | `--workflow`                 | Name of the workflow to be customized in the atlantis server. If empty, will be left out of output                                                                              | ""                |
-| `--apply-requirements`    | Requirements that must be satisfied before `atlantis apply` can be run. Currently the only supported requirements are `approved` and `mergeable`. Can be overridden by locals   | []                |
+| `--apply-requirements`       | Requirements that must be satisfied before `atlantis apply` can be run. Currently the only supported requirements are `approved` and `mergeable`. Can be overridden by locals   | []                |
 | `--output`                   | Path of the file where configuration will be generated. Typically, you want a file named "atlantis.yaml". Default is to write to `stdout`.                                      | ""                |
 | `--root`                     | Path to the root directory of the git repo you want to build config for.                                                                                                        | current directory |
 | `--terraform-version`        | Default terraform version to specify for all modules. Can be overriden by locals                                                                                                | ""                |
 | `--ignore-dependency-blocks` | When true, dependencies found in `dependency` and `dependencies` blocks will be ignored                                                                                         | false             |
-| `--filter`                   | Path or glob expression to the directory you want scope down the config for. Default is all files in root                                                                                          | ""                |
-| `--num-executors`                   | Number of executors used for parallel generation of projects. Default is 15                                                                                          | 15                |
+| `--filter`                   | Path or glob expression to the directory you want scope down the config for. Default is all files in root                                                                       | ""                |
+| `--num-executors`            | Number of executors used for parallel generation of projects. Default is 15                                                                                                     | 15                |
 
 ## Project generation
 
 These flags offer additional options to generate Atlantis projects based on HCL configuration files in the terragrunt hierarchy. This, for example, enables Atlantis to use `terragrunt run-all` workflows on staging environment or product levels in a terragrunt hierarchy. Mostly useful in large terragrunt projects containing lots of interdependent child modules. Atlantis `locals` can be used in the defined project marker files.
 
-| Flag Name                    | Description                                                                                                                                                                     | Default Value     | Type |
-| ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------- |----- |
-| `--project-hcl-files`        | Comma-separated names of arbitrary hcl files in the terragrunt hierarchy to create Atlantis projects for.<br>Disables the `--filter` flag  | ""      |  list(string) |
-| `--use-project-markers`      | If enabled, project hcl files must include `locals { atlantis_project = true }` for project creation.  | false      |  bool |
-| `--create-hcl-project-childs`        | Creates Atlantis projects for terragrunt child modules below the directories containing the HCL files defined in --project-hcl-files  | false       | bool |
-| `--create-hcl-project-external-childs`    | Creates Atlantis projects for terragrunt child modules outside the directories containing the HCL files defined in --project-hcl-files  | true          | bool |
+| Flag Name                              | Description                                                                                                                               | Default Value | Type         |
+| -------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ------------- | ------------ |
+| `--project-hcl-files`                  | Comma-separated names of arbitrary hcl files in the terragrunt hierarchy to create Atlantis projects for.<br>Disables the `--filter` flag | ""            | list(string) |
+| `--use-project-markers`                | If enabled, project hcl files must include `locals { atlantis_project = true }` for project creation.                                     | false         | bool         |
+| `--create-hcl-project-childs`          | Creates Atlantis projects for terragrunt child modules below the directories containing the HCL files defined in --project-hcl-files      | false         | bool         |
+| `--create-hcl-project-external-childs` | Creates Atlantis projects for terragrunt child modules outside the directories containing the HCL files defined in --project-hcl-files    | true          | bool         |
 
 ## All Locals
 
@@ -155,7 +154,7 @@ Another way to customize the output is to use `locals` values in your terragrunt
 | `atlantis_autoplan`           | Allows overriding the `--autoplan` flag for a single module                                                                                                    | bool         |
 | `atlantis_skip`               | If true on a child module, that module will not appear in the output.<br>If true on a parent module, none of that parent's children will appear in the output. | bool         |
 | `extra_atlantis_dependencies` | See [Extra dependencies](https://github.com/transcend-io/terragrunt-atlantis-config#extra-dependencies)                                                        | list(string) |
-| `atlantis_project`            | Create Atlantis project for a project hcl file. Only functional with `--project-hcl-files` and `--use-project-markers` | bool         |
+| `atlantis_project`            | Create Atlantis project for a project hcl file. Only functional with `--project-hcl-files` and `--use-project-markers`                                         | bool         |
 
 ## Separate workspace for parallel plan and apply
 
@@ -193,7 +192,7 @@ Recommended: Install any version via go get:
 cd && GO111MODULE=on go get github.com/transcend-io/terragrunt-atlantis-config@v1.14.2 && cd -
 ```
 
-This module officially supports golang versions v1.13, v1.14, v1.15, and v1.16, tested on CircleCI with each build
+This module officially supports golang versions v1.15, v1.16, and v1.17, tested on CircleCI with each build
 This module also officially supports both Windows and Nix-based file formats, tested on CircleCI with each build
 
 Usage Examples (see below sections for all options):
